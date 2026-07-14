@@ -1,28 +1,28 @@
 const CACHE_NAME = 'agenda-polizia-v1';
 const urlsToCache = [
-  'index.html',
-  'manifest.json',
-  'icon-192.png',
-  'icon-512.png',
-  'icon-72.png'
+  '/Agenda-Polizia/',
+  '/Agenda-Polizia/index.html',
+  '/Agenda-Polizia/icon-48.png',
+  '/Agenda-Polizia/icon-72.png',
+  '/Agenda-Polizia/icon-96.png',
+  '/Agenda-Polizia/icon-144.png',
+  '/Agenda-Polizia/icon-192.png',
+  '/Agenda-Polizia/icon-512.png'
 ];
 
-// Installa il service worker e cache dei file
-self.addEventListener('install', event => {
+self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Cache aperta');
+      .then(function(cache) {
         return cache.addAll(urlsToCache);
       })
   );
 });
 
-// Serve i file dalla cache quando offline
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request)
-      .then(response => {
+      .then(function(response) {
         if (response) {
           return response;
         }
@@ -30,19 +30,4 @@ self.addEventListener('fetch', event => {
       })
   );
 });
-
-// Aggiorna la cache quando necessario
-self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
 });
