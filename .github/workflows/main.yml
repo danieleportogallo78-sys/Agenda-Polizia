@@ -1,0 +1,80 @@
+name: Build APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: mingc/android-build-box:latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Bubblewrap
+        run: npm install -g @bubblewrap/cli
+
+      - name: Create Bubblewrap project
+        run: |
+          mkdir -p /tmp/bw-project
+          cd /tmp/bw-project
+
+          # Crea il file twa-manifest.json con configurazione completa
+          cat > twa-manifest.json << 'EOF'
+          {
+            "packageId": "com.danieleportogallo.agenda",
+            "host": "danieleportogallo78-sys.github.io",
+            "name": "Agenda Polizia",
+            "launcherName": "Agenda",
+            "display": "standalone",
+            "themeColor": "#000000",
+            "navigationColor": "#000000",
+            "navigationColorDark": "#000000",
+            "navigationDividerColor": "#000000",
+            "navigationDividerColorDark": "#000000",
+            "backgroundColor": "#ffffff",
+            "enableNotifications": true,
+            "startUrl": "/Agenda-Polizia/",
+            "iconUrl": "https://danieleportogallo78-sys.github.io/Agenda-Polizia/icon-512.png",
+            "maskableIconUrl": "",
+            "monochromeIconUrl": "",
+            "splashScreenFadeOutDuration": 300,
+            "signingKey": {
+              "path": "android.keystore",
+              "alias": "android"
+            },
+            "appVersionName": "1.0.0",
+            "appVersionCode": 1,
+            "shortcuts": [],
+            "generatorApp": "bubblewrap-cli"
+          }
+          EOF
+
+          # Crea il keystore per firmare l'app
+          keytool -genkey -v -keystore android.keystore -alias android -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Android Debug,O=Android,C=US"
+
+      - name: Build APK
+        run: |
+          cd /tmp/bw-project
+          bubblewrap build --skipPwaValidation
+        env:
+          ANDROID_HOME: /opt/android-sdk
+          BUBBLEWRAP_KEYSTORE_PASSWORD: android
+          BUBBLEWRAP_KEY_PASSWORD: android
+
+      - name: Copy APK to workspace
+        run: |
+          cp /tmp/bw-project/app-release-signed.apk ./Agenda-Polizia.apk || cp /tmp/bw-project/*.apk ./ || true
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Agenda-Polizia-APK
+          path: ./*.apk
