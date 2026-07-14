@@ -1,7 +1,8 @@
-const CACHE_NAME = 'agenda-polizia-v1';
+const CACHE_NAME = 'registro-pds-v1';
 const urlsToCache = [
   '/Agenda-Polizia/',
   '/Agenda-Polizia/index.html',
+  '/Agenda-Polizia/manifest.json',
   '/Agenda-Polizia/icon-48.png',
   '/Agenda-Polizia/icon-72.png',
   '/Agenda-Polizia/icon-96.png',
@@ -29,5 +30,4 @@ self.addEventListener('fetch', function(event) {
         return fetch(event.request);
       })
   );
-});
 });
