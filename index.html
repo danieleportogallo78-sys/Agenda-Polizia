@@ -6,13 +6,10 @@
 <meta name="theme-color" content="#1e3a8a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Agenda Polizia">
+<meta name="apple-mobile-web-app-title" content="Registro PdS">
 <meta name="description" content="Registro Servizi Polizia di Stato">
-<title>Agenda Polizia</title>
+<title>Registro Servizi PdS</title>
 <link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-<link rel="apple-touch-icon" href="icon-192.png">
 <style>
 * {
   margin: 0;
@@ -270,9 +267,9 @@ body {
   gap: 8px;
 }
 
-.stats-grid-3 {
+.stats-grid-5 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px;
 }
 
@@ -382,13 +379,19 @@ textarea { resize: vertical; min-height: 60px; }
   gap: 10px;
 }
 
+.row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
 .row-4 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 10px;
 }
 
-.row-2 .form-group, .row-4 .form-group { margin-bottom: 0; }
+.row-2 .form-group, .row-3 .form-group, .row-4 .form-group { margin-bottom: 0; }
 
 .btn {
   padding: 12px 16px;
@@ -418,16 +421,6 @@ textarea { resize: vertical; min-height: 60px; }
   color: white;
 }
 
-.btn-danger {
-  background: linear-gradient(135deg, #dc2626, var(--danger));
-  color: white;
-}
-
-.btn-warning {
-  background: linear-gradient(135deg, #d97706, var(--warning));
-  color: white;
-}
-
 .btn-outline {
   background: transparent;
   border: 2px solid var(--border);
@@ -437,12 +430,6 @@ textarea { resize: vertical; min-height: 60px; }
 .btn-sm {
   padding: 8px 14px;
   font-size: 13px;
-  width: auto;
-}
-
-.btn-xs {
-  padding: 4px 10px;
-  font-size: 11px;
   width: auto;
 }
 
@@ -567,46 +554,42 @@ textarea { resize: vertical; min-height: 60px; }
   text-align: right;
 }
 
-.aspettativa-row {
+.licenze-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.licenza-box {
+  text-align: center;
+  padding: 12px 4px;
   background: var(--surface-2);
   border-radius: var(--radius-sm);
-  padding: 12px;
-  margin-top: 8px;
-  border: 1px solid var(--border);
-}
-
-.aspettativa-row .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-.aspettativa-row .header .label {
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.aspettativa-row .barra {
-  height: 8px;
-  background: var(--surface-3);
-  border-radius: 4px;
+  position: relative;
   overflow: hidden;
-  margin: 4px 0;
 }
 
-.aspettativa-row .barra .fill {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 0.5s ease;
+.licenza-box .bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  border-radius: 0 2px 0 0;
 }
 
-.aspettativa-row .dettagli {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
+.licenza-box .num {
+  font-size: 24px;
+  font-weight: 800;
+  position: relative;
+  z-index: 1;
+}
+
+.licenza-box .label {
+  font-size: 10px;
+  font-weight: 700;
   color: var(--text-2);
-  margin-top: 4px;
+  position: relative;
+  z-index: 1;
 }
 
 .db-search {
@@ -643,113 +626,8 @@ textarea { resize: vertical; min-height: 60px; }
 
 .db-table tr:active td { background: var(--surface-2); }
 
-/* Pagamenti - Versione compatta nel drawer */
-.pagamenti-riepilogo-compact {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 6px;
-  margin-bottom: 10px;
-}
-
-.pagamenti-riepilogo-compact .stat-box {
-  padding: 8px 4px;
-  border-radius: var(--radius-sm);
-  text-align: center;
-}
-
-.pagamenti-riepilogo-compact .stat-box .num {
-  font-size: 18px;
-  font-weight: 800;
-}
-
-.pagamenti-riepilogo-compact .stat-box .label {
-  font-size: 8px;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-.anno-pagamento {
-  background: var(--surface-2);
-  border-radius: var(--radius-sm);
-  margin-bottom: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-}
-
-.anno-pagamento .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 12px;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: var(--surface);
-}
-
-.anno-pagamento .header:active { background: var(--surface-2); }
-
-.anno-pagamento .header .anno {
-  font-weight: 700;
-  font-size: 15px;
-}
-
-.anno-pagamento .header .totali {
-  display: flex;
-  gap: 12px;
-  font-size: 12px;
-}
-
-.anno-pagamento .header .totali span { font-weight: 600; }
-.anno-pagamento .header .totali .pagato { color: var(--success); }
-.anno-pagamento .header .totali .da-pagare { color: var(--danger); }
-
-.anno-pagamento .header .arrow {
-  font-size: 14px;
-  transition: transform 0.3s;
-}
-
-.anno-pagamento .header .arrow.open { transform: rotate(90deg); }
-
-.anno-pagamento .dettaglio {
-  display: none;
-  padding: 8px 12px 12px;
-  background: var(--surface-2);
-  border-top: 1px solid var(--border);
-}
-
-.anno-pagamento .dettaglio.open { display: block; }
-
-.anno-pagamento .dettaglio .mese-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 8px;
-  border-bottom: 1px solid var(--border);
-  font-size: 12px;
-}
-
-.anno-pagamento .dettaglio .mese-row:last-child { border-bottom: none; }
-
-.anno-pagamento .dettaglio .mese-row .nome-mese {
-  font-weight: 600;
-  min-width: 40px;
-}
-
-.anno-pagamento .dettaglio .mese-row .ore {
-  display: flex;
-  gap: 10px;
-}
-
-.anno-pagamento .dettaglio .mese-row .ore .pagato { color: var(--success); }
-.anno-pagamento .dettaglio .mese-row .ore .da-pagare { color: var(--danger); }
-.anno-pagamento .dettaglio .mese-row .ore .totale { color: var(--text); }
-
-.anno-pagamento .dettaglio .actions-mese {
-  display: flex;
-  gap: 4px;
-  margin-top: 4px;
-  flex-wrap: wrap;
-}
+.db-table .str-cell { font-weight: 700; color: var(--danger); }
+.db-table .nott-cell { font-weight: 600; color: var(--purple); }
 
 .toast-container {
   position: fixed;
@@ -867,21 +745,20 @@ textarea { resize: vertical; min-height: 60px; }
   top: 0;
   left: 0;
   bottom: 0;
-  width: 320px;
-  max-width: 85vw;
+  width: 280px;
+  max-width: 80vw;
   background: var(--surface);
   z-index: 201;
   transform: translateX(-100%);
   transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
   box-shadow: var(--shadow-lg);
-  padding: 0 16px max(20px, var(--safe-bottom));
+  padding: 0 0 max(20px, var(--safe-bottom));
   overflow-y: auto;
 }
 .drawer.active { transform: translateX(0); }
 
 .drawer-header {
   background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-  margin: 0 -16px;
   padding: 24px 20px 20px;
   color: white;
 }
@@ -892,7 +769,7 @@ textarea { resize: vertical; min-height: 60px; }
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 4px;
+  padding: 12px 20px;
   color: var(--text);
   font-size: 14px;
   font-weight: 600;
@@ -902,34 +779,17 @@ textarea { resize: vertical; min-height: 60px; }
   width: 100%;
   text-align: left;
   transition: all 0.15s;
-  border-radius: var(--radius-sm);
 }
 .drawer-item:active { background: var(--surface-2); }
 .drawer-item .icon { font-size: 18px; width: 28px; text-align: center; }
 
-.drawer-divider { height: 1px; background: var(--border); margin: 8px 0; }
-
-.drawer-card {
-  background: var(--surface-2);
-  border-radius: var(--radius-sm);
-  padding: 12px;
-  margin: 8px 0;
-}
-
-.drawer-card .title {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text-2);
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  margin-bottom: 8px;
-}
+.drawer-divider { height: 1px; background: var(--border); margin: 4px 16px; }
 
 .toggle-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 4px;
+  padding: 12px 20px;
 }
 .toggle-row .label { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
 
@@ -972,30 +832,8 @@ textarea { resize: vertical; min-height: 60px; }
 .flex-center { display: flex; align-items: center; }
 .justify-between { display: flex; justify-content: space-between; }
 
-/* Pulsante test notifiche */
-.notif-test-btn {
-  position: fixed;
-  bottom: 90px;
-  right: 16px;
-  z-index: 95;
-  background: var(--warning);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  font-size: 20px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-.notif-test-btn:active { transform: scale(0.88); }
-
 @media print {
-  .top-bar, .fab, .tabs, .no-print, .notif-test-btn { display: none !important; }
+  .top-bar, .fab, .tabs, .no-print { display: none !important; }
   body { padding: 0; background: white; }
   .main { padding: 0; }
   .card { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
@@ -1005,13 +843,14 @@ textarea { resize: vertical; min-height: 60px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 </style>
+<base target="_blank">
 </head>
 <body>
 
 <div class="top-bar" id="topBar">
   <div style="display:flex;align-items:center;gap:10px;">
     <button class="top-btn" onclick="toggleDrawer()">☰</button>
-    <h1>📋 Agenda Polizia</h1>
+    <h1>📋 Registro</h1>
   </div>
   <div class="right">
     <span class="badge-count" id="recuperiBadge">0</span>
@@ -1020,9 +859,6 @@ textarea { resize: vertical; min-height: 60px; }
 </div>
 
 <div class="toast-container" id="toastContainer"></div>
-
-<!-- Pulsante test notifiche -->
-<button class="notif-test-btn" onclick="testNotification()" title="Test notifica">🔔</button>
 
 <div class="main" id="mainContent">
 
@@ -1105,10 +941,11 @@ textarea { resize: vertical; min-height: 60px; }
 
       <div>
         <div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Congedi</div>
-        <div class="stats-grid-3">
+        <div class="stats-grid-4">
           <div class="stat-box"><div class="num primary" id="rCO">0</div><div class="label">C.O.</div></div>
-          <div class="stat-box"><div class="num purple" id="rCS">0</div><div class="label">C.S.</div></div>
+          <div class="stat-box"><div class="num danger" id="rCS">0</div><div class="label">C.S.</div></div>
           <div class="stat-box"><div class="num success" id="rCL">0</div><div class="label">C.L.</div></div>
+          <div class="stat-box"><div class="num" id="rMalattia">0</div><div class="label">Malattia</div></div>
         </div>
       </div>
     </div>
@@ -1118,7 +955,7 @@ textarea { resize: vertical; min-height: 60px; }
     <div class="card">
       <div class="card-title">📦 Recuperi in attesa</div>
       <div class="recuperi-list" id="recuperiLista"></div>
-      <button class="btn btn-success btn-sm" style="margin-top:10px;" onclick="apriRecupero()">➕ Aggiungi Recupero</button>
+      <button class="btn btn-success btn-sm" style="margin-top:10px;" onclick="aggiungiRecuperoManuale()">➕ Aggiungi Recupero</button>
     </div>
 
     <div class="card">
@@ -1129,20 +966,51 @@ textarea { resize: vertical; min-height: 60px; }
 
   <div id="tab-congedi" class="tab-content">
     <div class="card">
-      <div class="card-title">🏖️ Congedi - Residuo</div>
+      <div class="card-title">🏖️ Congedo Ordinario - Residuo</div>
       <div class="congedi-dettaglio" id="congediDettaglio"></div>
     </div>
 
     <div class="card">
-      <div class="card-title">⚙️ Configurazione Congedi</div>
-      <div id="configurazioneAnni"></div>
-      <button class="btn btn-primary btn-sm" onclick="salvaCongedi()" style="margin-top:8px;">💾 Salva Configurazione</button>
-      <div style="margin-top:8px;font-size:11px;color:var(--text-3);">
-        <span>💡 L'anno corrente viene calcolato automaticamente: C.O. 45gg, C.S. 45gg, C.L. 4gg</span><br>
-        <span>💡 C.S. e C.L. si azzerano ogni anno solare e non sono configurabili per gli anni passati</span><br>
-        <span>💡 Donazione sangue e Visita specialistica consumano C.S.</span><br>
-        <span>💡 I C.O. vengono consumati in questo ordine: 2024 → 2025 → 2026</span>
+      <div class="card-title">🏷️ Altre Licenze</div>
+      <div class="licenze-grid">
+        <div class="licenza-box">
+          <div class="num" id="licCOtot">0</div>
+          <div class="label">C.O. Totale</div>
+        </div>
+        <div class="licenza-box">
+          <div class="num" id="licCS">0</div>
+          <div class="label">C.S.</div>
+        </div>
+        <div class="licenza-box">
+          <div class="num" id="licCL">0</div>
+          <div class="label">C.L.</div>
+        </div>
       </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚙️ Configurazione Congedi</div>
+      <div class="form-group">
+        <label>C.O. Residuo 2024</label>
+        <input type="number" id="co2024" min="0" max="45" onchange="salvaCongedi()">
+      </div>
+      <div class="form-group">
+        <label>C.O. 2025</label>
+        <input type="number" id="co2025" min="0" max="45" onchange="salvaCongedi()">
+      </div>
+      <div class="form-group">
+        <label>C.O. 2026</label>
+        <input type="number" id="co2026" min="0" max="45" onchange="salvaCongedi()">
+      </div>
+      <div class="form-group">
+        <label>C.S. (Straordinario)</label>
+        <input type="number" id="csGiorni" min="0" max="45" onchange="salvaCongedi()">
+      </div>
+      <div class="form-group">
+        <label>C.L. (Legge)</label>
+        <input type="number" id="clGiorni" min="0" max="4" onchange="salvaCongedi()">
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="salvaCongedi()">💾 Salva Configurazione</button>
     </div>
   </div>
 
@@ -1174,7 +1042,6 @@ textarea { resize: vertical; min-height: 60px; }
 
 <button class="fab" onclick="openSheet()">+</button>
 
-<!-- Sheet per nuovo servizio -->
 <div class="sheet-overlay" id="sheetOverlay" onclick="closeSheet()"></div>
 <div class="sheet" id="sheet">
   <div class="sheet-handle"></div>
@@ -1212,9 +1079,8 @@ textarea { resize: vertical; min-height: 60px; }
           <option value="C.O.">C.O. (Congedo Ordinario)</option>
           <option value="C.S.">C.S. (Congedo Straordinario)</option>
           <option value="C.L.">C.L. (Congedo Legge)</option>
-          <option value="Aspettativa">Aspettativa</option>
-          <option value="Donazione sangue">Donazione sangue</option>
-          <option value="Visita specialistica">Visita specialistica</option>
+          <option value="Malattia">Malattia</option>
+          <option value="Concorso">Concorso</option>
         </optgroup>
         <optgroup label="♻️ Recuperi">
           <option value="Recupero Riposo">Recupero Riposo</option>
@@ -1240,13 +1106,13 @@ textarea { resize: vertical; min-height: 60px; }
     <div class="row-2">
       <div class="form-group">
         <label>Inizio</label>
-        <select id="fInizio" onchange="calcolaTutto()">
+        <select id="fInizio" onchange="calcolaNotturno()">
           <option value="">--:--</option>
         </select>
       </div>
       <div class="form-group">
         <label>Fine</label>
-        <select id="fFine" onchange="calcolaTutto()">
+        <select id="fFine" onchange="calcolaNotturno()">
           <option value="">--:--</option>
         </select>
       </div>
@@ -1286,15 +1152,10 @@ textarea { resize: vertical; min-height: 60px; }
       <div class="flex justify-between">
         <span class="fs-small fw-bold">🔢 Calcolo automatico</span>
       </div>
-      <div class="flex" style="gap:12px;margin-top:6px;flex-wrap:wrap;">
-        <span class="fs-small">Ore totali: <span class="fw-bold" id="previewOre">0h</span></span>
+      <div class="flex" style="gap:16px;margin-top:6px;flex-wrap:wrap;">
         <span class="fs-small">Straord: <span class="fw-bold text-danger" id="previewStr">0h</span></span>
         <span class="fs-small">Notturno: <span class="fw-bold text-purple" id="previewNott">0h</span></span>
-      </div>
-      <div class="flex" style="gap:12px;margin-top:4px;flex-wrap:wrap;">
-        <span class="fs-small">FER: <span class="fw-bold" id="previewFer">0h</span></span>
-        <span class="fs-small">N/F: <span class="fw-bold text-purple" id="previewNF">0h</span></span>
-        <span class="fs-small">F/N: <span class="fw-bold text-warning" id="previewFN">0h</span></span>
+        <span class="fs-small">Ore: <span class="fw-bold" id="previewOre">0h</span></span>
       </div>
     </div>
 
@@ -1302,123 +1163,11 @@ textarea { resize: vertical; min-height: 60px; }
   </form>
 </div>
 
-<!-- Sheet per aggiungere recupero -->
-<div class="sheet-overlay" id="recuperoOverlay" onclick="closeRecuperoSheet()"></div>
-<div class="sheet" id="recuperoSheet">
-  <div class="sheet-handle"></div>
-  <div class="sheet-header">
-    <h3>📦 Nuovo Recupero</h3>
-    <button class="top-btn" style="background:var(--surface-2);color:var(--text);width:36px;height:36px;border-radius:10px;font-size:16px;" onclick="closeRecuperoSheet()">✕</button>
-  </div>
-
-  <form id="recuperoForm" onsubmit="return handleRecuperoSubmit(event)">
-    <div class="form-group">
-      <label>Data del recupero</label>
-      <input type="date" id="rData" required>
-    </div>
-
-    <div class="form-group">
-      <label>Tipo di recupero</label>
-      <select id="rTipo" required>
-        <option value="">-- Seleziona --</option>
-        <option value="Riposo">Riposo</option>
-        <option value="Giorno libero">Giorno libero</option>
-        <option value="Riposo festivo">Riposo festivo</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Note (opzionale)</label>
-      <input type="text" id="rNote" placeholder="Es. Recupero da servizio del ...">
-    </div>
-
-    <button type="submit" class="btn btn-success">💾 Salva Recupero</button>
-  </form>
-</div>
-
-<!-- Sheet per pagamento -->
-<div class="sheet-overlay" id="pagamentoOverlay" onclick="closePagamentoSheet()"></div>
-<div class="sheet" id="pagamentoSheet">
-  <div class="sheet-handle"></div>
-  <div class="sheet-header">
-    <h3>💰 Aggiungi Pagamento</h3>
-    <button class="top-btn" style="background:var(--surface-2);color:var(--text);width:36px;height:36px;border-radius:10px;font-size:16px;" onclick="closePagamentoSheet()">✕</button>
-  </div>
-
-  <form id="pagamentoForm" onsubmit="return handlePagamentoSubmit(event)">
-    <div class="form-group">
-      <label>Mese</label>
-      <input type="month" id="pMese" required>
-    </div>
-
-    <div class="form-group">
-      <label>Ore pagate</label>
-      <input type="number" id="pOre" step="0.5" min="0" required placeholder="Es. 10.5">
-    </div>
-
-    <div class="form-group">
-      <label>Data pagamento</label>
-      <input type="date" id="pDataPagamento" required>
-    </div>
-
-    <div class="form-group">
-      <label>Note</label>
-      <input type="text" id="pNote" placeholder="Es. Primo trimestre 2024">
-    </div>
-
-    <button type="submit" class="btn btn-success">💾 Salva Pagamento</button>
-  </form>
-</div>
-
-<!-- Sheet per straordinario manuale -->
-<div class="sheet-overlay" id="straordManualeOverlay" onclick="closeStraordManualeSheet()"></div>
-<div class="sheet" id="straordManualeSheet">
-  <div class="sheet-handle"></div>
-  <div class="sheet-header">
-    <h3>✏️ Inserisci Straordinario Arretrato</h3>
-    <button class="top-btn" style="background:var(--surface-2);color:var(--text);width:36px;height:36px;border-radius:10px;font-size:16px;" onclick="closeStraordManualeSheet()">✕</button>
-  </div>
-
-  <form id="straordManualeForm" onsubmit="return handleStraordManualeSubmit(event)">
-    <div class="form-group">
-      <label>Mese</label>
-      <input type="month" id="sMese" required>
-    </div>
-
-    <div class="form-group">
-      <label>Ore straordinarie totali</label>
-      <input type="number" id="sOre" step="0.5" min="0" required placeholder="Es. 25.5">
-    </div>
-
-    <div class="form-group">
-      <label>Di cui FER (feriali diurne)</label>
-      <input type="number" id="sFer" step="0.5" min="0" value="0" placeholder="Es. 10">
-    </div>
-
-    <div class="form-group">
-      <label>Di cui N/F (notturne + festive diurne)</label>
-      <input type="number" id="sNf" step="0.5" min="0" value="0" placeholder="Es. 10">
-    </div>
-
-    <div class="form-group">
-      <label>Di cui F/N (festive notturne)</label>
-      <input type="number" id="sFn" step="0.5" min="0" value="0" placeholder="Es. 5.5">
-    </div>
-
-    <div style="background:var(--surface-2);border-radius:var(--radius-sm);padding:10px;margin-bottom:12px;font-size:13px;">
-      <span class="fw-bold">Totale: </span>
-      <span id="sTotalePreview">0h</span>
-    </div>
-
-    <button type="submit" class="btn btn-warning">💾 Salva Straordinario</button>
-  </form>
-</div>
-
 <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
 <div class="drawer" id="drawer">
   <div class="drawer-header">
-    <div class="name">📋 Agenda Polizia</div>
-    <div class="sub">versione 6.0 · agente</div>
+    <div class="name">📋 Registro PdS</div>
+    <div class="sub">versione 4.3 · agente</div>
   </div>
 
   <button class="drawer-item" onclick="switchTab('tab-home');toggleDrawer();"><span class="icon">📅</span>Oggi & Ultimi 7</button>
@@ -1426,38 +1175,6 @@ textarea { resize: vertical; min-height: 60px; }
   <button class="drawer-item" onclick="switchTab('tab-licenze');toggleDrawer();"><span class="icon">📦</span>Recuperi</button>
   <button class="drawer-item" onclick="switchTab('tab-congedi');toggleDrawer();"><span class="icon">🏖️</span>Congedi</button>
   <button class="drawer-item" onclick="switchTab('tab-database');toggleDrawer();"><span class="icon">🔍</span>Archivio</button>
-
-  <div class="drawer-divider"></div>
-
-  <!-- Card Pagamenti nel drawer -->
-  <div class="drawer-card">
-    <div class="title">💰 Pagamenti Straordinari</div>
-    
-    <div class="pagamenti-riepilogo-compact" id="pagRiepilogoCompact">
-      <div class="stat-box" style="background:var(--primary);color:white;">
-        <div class="num" id="pagTotaleCompact" style="color:white;">0h</div>
-        <div class="label" style="color:rgba(255,255,255,0.7);">Totale</div>
-      </div>
-      <div class="stat-box" style="background:var(--success);color:white;">
-        <div class="num" id="pagPagatoCompact" style="color:white;">0h</div>
-        <div class="label" style="color:rgba(255,255,255,0.7);">Pagato</div>
-      </div>
-      <div class="stat-box" style="background:var(--danger);color:white;">
-        <div class="num" id="pagDaPagareCompact" style="color:white;">0h</div>
-        <div class="label" style="color:rgba(255,255,255,0.7);">Da pagare</div>
-      </div>
-    </div>
-
-    <div style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;">
-      <button class="btn btn-xs btn-outline" onclick="cambiaAnnoPag(-1)">◀</button>
-      <span style="flex:1;text-align:center;font-weight:700;font-size:13px;padding:4px 0;" id="annoPagCorrente">2024</span>
-      <button class="btn btn-xs btn-outline" onclick="cambiaAnnoPag(1)">▶</button>
-      <button class="btn btn-xs btn-success" onclick="apriPagamento()">➕</button>
-      <button class="btn btn-xs btn-warning" onclick="apriStraordManuale()">✏️</button>
-    </div>
-
-    <div id="pagamentiListaCompact"></div>
-  </div>
 
   <div class="drawer-divider"></div>
 
@@ -1474,26 +1191,25 @@ textarea { resize: vertical; min-height: 60px; }
   <button class="drawer-item" onclick="showInfo();toggleDrawer();"><span class="icon">ℹ️</span>Informazioni</button>
 </div>
 
-<!-- Scripts -->
-<script src="notifications.js"></script>
-<script src="sw-register.js"></script>
-
 <script>
-// ===== DATABASE E LOGICA PRINCIPALE =====
 let db = [];
 let localita = [];
 let colleghi = [];
 let recuperi = [];
-let pagamenti = [];
-let straordManuale = [];
-let congediConfig = {};
-let annoPagCorrente = new Date().getFullYear();
+let congedi = {
+  co2024: 2,
+  co2025: 45,
+  co2026: 45,
+  cs: 45,
+  cl: 4
+};
+let currentYear = new Date().getFullYear();
+let currentMonth = new Date().getMonth();
 
 const giorniSettimana = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
 const nomiMesi = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'];
 const festivitaNazionali = ['01-01','06-01','25-04','01-05','02-06','15-08','01-11','08-12','25-12','26-12'];
 
-// ===== UTILITY =====
 function toast(msg, type) {
   const container = document.getElementById('toastContainer');
   const div = document.createElement('div');
@@ -1501,10 +1217,6 @@ function toast(msg, type) {
   div.textContent = msg;
   container.appendChild(div);
   setTimeout(() => div.remove(), 3000);
-}
-
-function testNotification() {
-  sendNotification('🔔 Test Notifica', 'Le notifiche funzionano correttamente!', '/');
 }
 
 function isFestivo(dataStr) {
@@ -1571,190 +1283,27 @@ function calcolaStraord(oreTotali) {
   return Math.round((oreTotali - 6) * 10) / 10;
 }
 
-function calcolaSuddivisioneStraord(inizio, fine, dataStr) {
-  if (!inizio || !fine) return { fer: 0, nf: 0, fn: 0, notturno: 0 };
-  
-  const oreTotali = calcolaOre(inizio, fine);
-  const straord = calcolaStraord(oreTotali);
-  if (straord === 0) return { fer: 0, nf: 0, fn: 0, notturno: 0 };
-  
-  const festivo = isFestivo(dataStr);
-  const notturno = calcolaNotturno(inizio, fine);
-  
-  const notturnoRatio = oreTotali > 0 ? notturno / oreTotali : 0;
-  const straordNotturno = Math.round(straord * notturnoRatio * 10) / 10;
-  const straordDiurno = Math.round((straord - straordNotturno) * 10) / 10;
-  
-  let fer = 0, nf = 0, fn = 0;
-  
-  if (festivo) {
-    if (straordNotturno > 0) fn = straordNotturno;
-    if (straordDiurno > 0) nf += straordDiurno;
-  } else {
-    if (straordNotturno > 0) nf += straordNotturno;
-    if (straordDiurno > 0) fer += straordDiurno;
-  }
-  
-  fer = Math.round(fer * 10) / 10;
-  nf = Math.round(nf * 10) / 10;
-  fn = Math.round(fn * 10) / 10;
-  
-  return { fer, nf, fn, notturno };
-}
-
-// ===== CONGEDI - FUNZIONI CORRETTE =====
-
-function getAnniVisibili() {
-  const annoCorrente = new Date().getFullYear();
-  return [annoCorrente, annoCorrente - 1, annoCorrente - 2];
-}
-
-function getCongediConfig() {
-  const anni = getAnniVisibili();
-  const config = {};
-  
-  anni.forEach(a => {
-    // Se esiste già una configurazione per questo anno, usala
-    if (congediConfig[a] && congediConfig[a].co !== undefined) {
-      config[a] = congediConfig[a];
-    } else {
-      // Altrimenti crea default con 45
-      config[a] = { co: 45 };
-    }
-  });
-  
-  return config;
-}
-
 function getCongediResidui() {
-  const annoCorrente = new Date().getFullYear();
-  const anni = getAnniVisibili();
-  const config = getCongediConfig();
-  const result = {};
-  
-  anni.forEach(anno => {
-    let coUsati = 0, csUsati = 0, clUsati = 0;
-    
-    db.forEach(r => {
-      if (r.data) {
-        let annoControllo = anno;
-        
-        // Per C.O., usa consumo_anno se presente
-        if (r.servizio === 'C.O.') {
-          if (r.consumo_anno) {
-            annoControllo = r.consumo_anno;
-          } else {
-            const d = new Date(r.data + 'T12:00:00');
-            annoControllo = d.getFullYear();
-          }
-        } else {
-          const d = new Date(r.data + 'T12:00:00');
-          annoControllo = d.getFullYear();
-        }
-        
-        if (annoControllo === anno) {
-          if (r.servizio === 'C.O.') coUsati++;
-          else if (r.servizio === 'C.S.' || r.servizio === 'Donazione sangue' || r.servizio === 'Visita specialistica') csUsati++;
-          else if (r.servizio === 'C.L.') clUsati++;
-        }
-      }
-    });
-    
-    let totaleCO, totaleCS, totaleCL;
-    if (anno === annoCorrente) {
-      totaleCO = 45;
-      totaleCS = 45;
-      totaleCL = 4;
-    } else {
-      // Usa i valori dalla configurazione
-      totaleCO = config[anno]?.co || 45;
-      totaleCS = 0; // C.S. non si riporta
-      totaleCL = 0; // C.L. non si riporta
-    }
-    
-    result[anno] = {
-      co: { 
-        totale: totaleCO, 
-        usati: coUsati, 
-        residuo: Math.max(0, totaleCO - coUsati) 
-      },
-      cs: { 
-        totale: totaleCS, 
-        usati: csUsati, 
-        residuo: Math.max(0, totaleCS - csUsati) 
-      },
-      cl: { 
-        totale: totaleCL, 
-        usati: clUsati, 
-        residuo: Math.max(0, totaleCL - clUsati) 
-      },
-      eccedenza: (coUsati > totaleCO) || (csUsati > totaleCS) || (clUsati > totaleCL)
-    };
+  let coUsati = 0;
+  db.forEach(r => {
+    if (r.servizio === 'C.O.') coUsati++;
   });
   
-  return { anni: result, annoCorrente };
-}
-
-function getAspettativaInfo() {
-  let totaleUtilizzato = 0;
-  let periodi = [];
-  
-  let aspettativaEntries = db.filter(r => r.servizio === 'Aspettativa' && r.data);
-  aspettativaEntries.sort((a, b) => a.data.localeCompare(b.data));
-  
-  let periodoCorrente = null;
-  aspettativaEntries.forEach(r => {
-    if (!periodoCorrente) {
-      periodoCorrente = { inizio: r.data, fine: r.data };
-    } else {
-      const dataCorrente = new Date(r.data + 'T12:00:00');
-      const dataPrecedente = new Date(periodoCorrente.fine + 'T12:00:00');
-      const diffGiorni = (dataCorrente - dataPrecedente) / (1000 * 60 * 60 * 24);
-      
-      if (diffGiorni <= 1) {
-        periodoCorrente.fine = r.data;
-      } else {
-        periodi.push(periodoCorrente);
-        periodoCorrente = { inizio: r.data, fine: r.data };
-      }
-    }
-  });
-  if (periodoCorrente) periodi.push(periodoCorrente);
-  
-  let totaleMesi = 0;
-  periodi.forEach(p => {
-    const inizio = new Date(p.inizio + 'T12:00:00');
-    const fine = new Date(p.fine + 'T12:00:00');
-    const diffGiorni = Math.round((fine - inizio) / (1000 * 60 * 60 * 24)) + 1;
-    totaleMesi += diffGiorni / 30;
-  });
-  totaleMesi = Math.round(totaleMesi * 10) / 10;
-  
-  let recuperato = 0;
-  const oggi = new Date();
-  periodi.forEach(p => {
-    const inizio = new Date(p.inizio + 'T12:00:00');
-    const fine = new Date(p.fine + 'T12:00:00');
-    const dataRecupero = new Date(inizio);
-    dataRecupero.setFullYear(dataRecupero.getFullYear() + 5);
-    
-    if (oggi >= dataRecupero) {
-      const diffGiorni = Math.round((oggi - dataRecupero) / (1000 * 60 * 60 * 24));
-      const giorniPeriodo = Math.round((fine - inizio) / (1000 * 60 * 60 * 24)) + 1;
-      const recuperatoParziale = Math.min(diffGiorni, giorniPeriodo);
-      recuperato += recuperatoParziale / 30;
-    }
-  });
-  recuperato = Math.round(recuperato * 10) / 10;
-  
-  const disponibile = Math.min(18, 18 - totaleMesi + recuperato);
+  let daUsare = coUsati;
+  let usati2024 = Math.min(congedi.co2024, daUsare);
+  daUsare -= usati2024;
+  let usati2025 = Math.min(congedi.co2025, daUsare);
+  daUsare -= usati2025;
+  let usati2026 = Math.min(congedi.co2026, daUsare);
+  daUsare -= usati2026;
   
   return {
-    totaleMesi: 18,
-    utilizzati: Math.max(0, totaleMesi - recuperato),
-    recuperato: recuperato,
-    disponibile: Math.max(0, disponibile),
-    periodi: periodi
+    residuo2024: congedi.co2024 - usati2024,
+    residuo2025: congedi.co2025 - usati2025,
+    residuo2026: congedi.co2026 - usati2026,
+    totale: (congedi.co2024 - usati2024) + (congedi.co2025 - usati2025) + (congedi.co2026 - usati2026),
+    eccedenza: daUsare > 0 ? daUsare : 0,
+    usati: coUsati
   };
 }
 
@@ -1763,9 +1312,7 @@ function save() {
   localStorage.setItem('pds_localita', JSON.stringify(localita));
   localStorage.setItem('pds_colleghi', JSON.stringify(colleghi));
   localStorage.setItem('pds_recuperi', JSON.stringify(recuperi));
-  localStorage.setItem('pds_pagamenti', JSON.stringify(pagamenti));
-  localStorage.setItem('pds_straord_manuale', JSON.stringify(straordManuale));
-  localStorage.setItem('pds_congedi_config', JSON.stringify(congediConfig));
+  localStorage.setItem('pds_congedi', JSON.stringify(congedi));
 }
 
 function load() {
@@ -1782,23 +1329,17 @@ function load() {
   const rec = localStorage.getItem('pds_recuperi');
   if (rec) recuperi = JSON.parse(rec);
   
-  const pag = localStorage.getItem('pds_pagamenti');
-  if (pag) pagamenti = JSON.parse(pag);
-  
-  const sm = localStorage.getItem('pds_straord_manuale');
-  if (sm) straordManuale = JSON.parse(sm);
-  
-  const cong = localStorage.getItem('pds_congedi_config');
-  if (cong) {
-    congediConfig = JSON.parse(cong);
-  } else {
-    congediConfig = {};
-  }
+  const cong = localStorage.getItem('pds_congedi');
+  if (cong) congedi = JSON.parse(cong);
 }
 
 function buildTurni() {
+  console.log('buildTurni chiamata');
   const sel = document.getElementById('fTurno');
-  if (!sel) return;
+  if (!sel) {
+    console.error('Elemento fTurno non trovato!');
+    return;
+  }
   sel.innerHTML = '<option value="">-- Seleziona turno --</option>';
   for (let h = 0; h < 24; h++) {
     const start = (h+'').padStart(2,'0') + ':00';
@@ -1810,20 +1351,21 @@ function buildTurni() {
     option.textContent = label;
     sel.appendChild(option);
   }
+  console.log('Turni popolati, opzioni: ' + sel.options.length);
 }
 
 function compilaOrariDaTurno(turno) {
   if (!turno) {
     document.getElementById('fInizio').value = '';
     document.getElementById('fFine').value = '';
-    calcolaTutto();
+    calcolaNotturno();
     return;
   }
   const parti = turno.split('-');
   if (parti.length === 2) {
     document.getElementById('fInizio').value = parti[0];
     document.getElementById('fFine').value = parti[1];
-    calcolaTutto();
+    calcolaNotturno();
   }
 }
 
@@ -1832,11 +1374,7 @@ function buildOrari() {
   selects.forEach(id => {
     const sel = document.getElementById(id);
     if (!sel) return;
-    sel.innerHTML = '';
-    const emptyOpt = document.createElement('option');
-    emptyOpt.value = '';
-    emptyOpt.textContent = '--:--';
-    sel.appendChild(emptyOpt);
+    sel.innerHTML = '<option value="">--:--</option>';
     for (let h = 0; h < 24; h++) {
       for (let m = 0; m < 60; m += 30) {
         const val = (h+'').padStart(2,'0') + ':' + (m===0?'00':m);
@@ -1858,26 +1396,20 @@ function autoCompilaTurno(servizio) {
     document.getElementById('fTurno').value = '';
     document.getElementById('fInizio').value = '';
     document.getElementById('fFine').value = '';
-    calcolaTutto();
+    calcolaNotturno();
   }
 }
 
-function calcolaTutto() {
+function calcolaNotturno() {
   const inizio = document.getElementById('fInizio').value;
   const fine = document.getElementById('fFine').value;
-  const data = document.getElementById('fData').value;
-  
   const ore = calcolaOre(inizio, fine);
   const nott = calcolaNotturno(inizio, fine);
   const str = calcolaStraord(ore);
-  const suddivisione = calcolaSuddivisioneStraord(inizio, fine, data);
   
-  document.getElementById('previewOre').textContent = ore.toFixed(1) + 'h';
   document.getElementById('previewStr').textContent = str.toFixed(1) + 'h';
   document.getElementById('previewNott').textContent = nott.toFixed(1) + 'h';
-  document.getElementById('previewFer').textContent = suddivisione.fer.toFixed(1) + 'h';
-  document.getElementById('previewNF').textContent = suddivisione.nf.toFixed(1) + 'h';
-  document.getElementById('previewFN').textContent = suddivisione.fn.toFixed(1) + 'h';
+  document.getElementById('previewOre').textContent = ore.toFixed(1) + 'h';
 }
 
 function suggerisciLocalita(query) {
@@ -1911,7 +1443,7 @@ function caricaData(data) {
     document.getElementById('fServEst').value = item.servEst || '0';
     document.getElementById('fMancatoPasto').value = item.mancatoPasto || '0';
     document.getElementById('fTicket').value = item.ticket || '0';
-    calcolaTutto();
+    calcolaNotturno();
   } else {
     document.getElementById('fServizio').value = '';
     document.getElementById('fLocalita').value = '';
@@ -1924,11 +1456,10 @@ function caricaData(data) {
     document.getElementById('fServEst').value = '0';
     document.getElementById('fMancatoPasto').value = '0';
     document.getElementById('fTicket').value = '0';
-    calcolaTutto();
+    calcolaNotturno();
   }
 }
 
-// ===== HANDLE SUBMIT =====
 function handleSubmit(e) {
   e.preventDefault();
   const data = document.getElementById('fData').value;
@@ -1951,83 +1482,16 @@ function handleSubmit(e) {
   const ore = calcolaOre(inizio, fine);
   const notturno = calcolaNotturno(inizio, fine);
   const straord = calcolaStraord(ore);
-  const suddivisione = calcolaSuddivisioneStraord(inizio, fine, data);
   const festivo = isFestivo(data) ? 1 : 0;
   
-  const annoCorrente = new Date().getFullYear();
-  const annoRichiesto = new Date(data + 'T12:00:00').getFullYear();
-  let consumoAnno = null;
-  
-  // ===== CONTROLLO CONGEDI =====
-  const serviziCS = ['C.S.', 'Donazione sangue', 'Visita specialistica'];
-  
-  // C.O. - consumo prima dagli anni passati
-  if (servizio === 'C.O.') {
-    const residui = getCongediResidui();
-    const anniOrdine = [annoCorrente - 2, annoCorrente - 1, annoCorrente];
-    let annoUsato = null;
-    
-    for (let anno of anniOrdine) {
-      if (residui.anni[anno] && residui.anni[anno].co.residuo > 0) {
-        annoUsato = anno;
-        break;
-      }
-    }
-    
-    if (!annoUsato) {
-      toast('⚠️ C.O. esaurito per tutti gli anni disponibili', 'warning');
-      return false;
-    }
-    
-    consumoAnno = annoUsato;
-  }
-  
-  // Controllo per C.S.
-  if (serviziCS.includes(servizio)) {
-    const residui = getCongediResidui();
-    if (!residui.anni[annoRichiesto]) {
-      toast('Anno non gestito per ' + servizio, 'warning');
-      return false;
-    }
-    const disponibile = residui.anni[annoRichiesto].cs.residuo;
-    if (disponibile <= 0) {
-      toast('⚠️ C.S. esaurito per l\'anno ' + annoRichiesto, 'warning');
-      return false;
-    }
-  }
-  
-  // Controllo per C.L.
-  if (servizio === 'C.L.') {
-    const residui = getCongediResidui();
-    if (!residui.anni[annoRichiesto]) {
-      toast('Anno non gestito per C.L.', 'warning');
-      return false;
-    }
-    const disponibile = residui.anni[annoRichiesto].cl.residuo;
-    if (disponibile <= 0) {
-      toast('⚠️ C.L. esaurito per l\'anno ' + annoRichiesto, 'warning');
-      return false;
-    }
-  }
-  
-  // Controllo per Aspettativa
-  if (servizio === 'Aspettativa') {
-    const info = getAspettativaInfo();
-    if (info.disponibile <= 0) {
-      toast('⚠️ Aspettativa esaurita (18 mesi massimi)', 'warning');
-      return false;
-    }
-  }
-  
-  // Salva località e colleghi
   if (localita && !localita.includes(localita)) {
     localita.push(localita);
   }
+  
   if (collega && !colleghi.includes(collega)) {
     colleghi.push(collega);
   }
   
-  // Gestione recuperi
   const serviziRecupero = ['Recupero Riposo', 'Recupero Giorno Libero', 'Recupero Riposo Festivo'];
   if (serviziRecupero.includes(servizio)) {
     const tipoMap = {
@@ -2048,7 +1512,6 @@ function handleSubmit(e) {
     }
   }
   
-  // Salva il servizio nel database
   const idx = db.findIndex(r => r.data === data);
   const entry = {
     data,
@@ -2060,17 +1523,13 @@ function handleSubmit(e) {
     ore: Math.round(ore * 10) / 10,
     straord: Math.round(straord * 10) / 10,
     notturno: Math.round(notturno * 10) / 10,
-    fer: Math.round(suddivisione.fer * 10) / 10,
-    nf: Math.round(suddivisione.nf * 10) / 10,
-    fn: Math.round(suddivisione.fn * 10) / 10,
     festivo,
     fesi: parseInt(fesi),
     servEst: parseInt(servEst),
     mancatoPasto: parseInt(mancatoPasto),
     ticket: parseInt(ticket),
     collega,
-    note,
-    consumo_anno: consumoAnno
+    note
   };
   
   if (idx >= 0) {
@@ -2088,329 +1547,10 @@ function handleSubmit(e) {
   return false;
 }
 
-// ===== RECUPERI =====
-function apriRecupero() {
-  document.getElementById('recuperoOverlay').classList.add('active');
-  document.getElementById('recuperoSheet').classList.add('active');
-  document.getElementById('rData').value = new Date().toISOString().split('T')[0];
-  document.getElementById('rTipo').value = '';
-  document.getElementById('rNote').value = '';
-}
-
-function closeRecuperoSheet() {
-  document.getElementById('recuperoOverlay').classList.remove('active');
-  document.getElementById('recuperoSheet').classList.remove('active');
-}
-
-function handleRecuperoSubmit(e) {
-  e.preventDefault();
-  
-  const data = document.getElementById('rData').value;
-  const tipo = document.getElementById('rTipo').value;
-  const note = document.getElementById('rNote').value.trim();
-  
-  if (!data) { toast('Seleziona una data', 'warning'); return false; }
-  if (!tipo) { toast('Seleziona un tipo di recupero', 'warning'); return false; }
-  
-  recuperi.push({
-    data: data,
-    tipo: tipo,
-    usato: false,
-    dataUsato: '',
-    note: note
-  });
-  
-  save();
-  closeRecuperoSheet();
-  renderRecuperi();
-  toast('📦 Recupero aggiunto!');
-  return false;
-}
-
-// ===== STRAORDINARIO MANUALE =====
-function apriStraordManuale() {
-  document.getElementById('straordManualeOverlay').classList.add('active');
-  document.getElementById('straordManualeSheet').classList.add('active');
-  document.getElementById('sMese').value = '';
-  document.getElementById('sOre').value = '';
-  document.getElementById('sFer').value = '0';
-  document.getElementById('sNf').value = '0';
-  document.getElementById('sFn').value = '0';
-  aggiornaTotaleStraordManuale();
-}
-
-function closeStraordManualeSheet() {
-  document.getElementById('straordManualeOverlay').classList.remove('active');
-  document.getElementById('straordManualeSheet').classList.remove('active');
-}
-
-function aggiornaTotaleStraordManuale() {
-  const fer = parseFloat(document.getElementById('sFer').value) || 0;
-  const nf = parseFloat(document.getElementById('sNf').value) || 0;
-  const fn = parseFloat(document.getElementById('sFn').value) || 0;
-  const totale = fer + nf + fn;
-  document.getElementById('sTotalePreview').textContent = totale.toFixed(1) + 'h';
-  document.getElementById('sOre').value = totale.toFixed(1);
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  const sFer = document.getElementById('sFer');
-  const sNf = document.getElementById('sNf');
-  const sFn = document.getElementById('sFn');
-  if (sFer) sFer.addEventListener('input', aggiornaTotaleStraordManuale);
-  if (sNf) sNf.addEventListener('input', aggiornaTotaleStraordManuale);
-  if (sFn) sFn.addEventListener('input', aggiornaTotaleStraordManuale);
-});
-
-function handleStraordManualeSubmit(e) {
-  e.preventDefault();
-  
-  const mese = document.getElementById('sMese').value;
-  const ore = parseFloat(document.getElementById('sOre').value);
-  const fer = parseFloat(document.getElementById('sFer').value) || 0;
-  const nf = parseFloat(document.getElementById('sNf').value) || 0;
-  const fn = parseFloat(document.getElementById('sFn').value) || 0;
-  
-  if (!mese) { toast('Seleziona un mese', 'warning'); return false; }
-  if (!ore || ore <= 0) { toast('Inserisci un numero di ore valido', 'warning'); return false; }
-  
-  const somma = fer + nf + fn;
-  if (Math.abs(somma - ore) > 0.01) {
-    toast('La somma delle suddivisioni non corrisponde al totale!', 'warning');
-    return false;
-  }
-  
-  const idx = straordManuale.findIndex(s => s.mese === mese);
-  if (idx >= 0) {
-    if (!confirm('Questo mese ha già un inserimento manuale. Sovrascrivere?')) return false;
-    straordManuale[idx] = { mese, ore: Math.round(ore * 10) / 10, fer: Math.round(fer * 10) / 10, nf: Math.round(nf * 10) / 10, fn: Math.round(fn * 10) / 10 };
-  } else {
-    straordManuale.push({ mese, ore: Math.round(ore * 10) / 10, fer: Math.round(fer * 10) / 10, nf: Math.round(nf * 10) / 10, fn: Math.round(fn * 10) / 10 });
-  }
-  
-  save();
-  closeStraordManualeSheet();
-  renderPagamenti();
-  toast('✏️ Straordinario manuale salvato!');
-  return false;
-}
-
-// ===== PAGAMENTI =====
-function getMeseKey(anno, mese) {
-  return anno + '-' + String(mese + 1).padStart(2, '0');
-}
-
-function getStraordMese(anno, mese) {
-  const key = getMeseKey(anno, mese);
-  const manuale = straordManuale.find(s => s.mese === key);
-  if (manuale) {
-    return { totStr: manuale.ore, fer: manuale.fer || 0, nf: manuale.nf || 0, fn: manuale.fn || 0 };
-  }
-  
-  const servizi = db.filter(r => {
-    const d = new Date(r.data + 'T12:00:00');
-    return d.getFullYear() === anno && d.getMonth() === mese && r.servizio;
-  });
-  
-  let totStr = 0, fer = 0, nf = 0, fn = 0;
-  servizi.forEach(r => {
-    if (r.straord) totStr += r.straord;
-    if (r.fer) fer += r.fer;
-    if (r.nf) nf += r.nf;
-    if (r.fn) fn += r.fn;
-  });
-  
-  return { totStr, fer, nf, fn };
-}
-
-function getPagamentiMese(anno, mese) {
-  const key = getMeseKey(anno, mese);
-  return pagamenti.filter(p => p.mese === key);
-}
-
-function getTotalePagatoMese(anno, mese) {
-  const pags = getPagamentiMese(anno, mese);
-  let totale = 0;
-  pags.forEach(p => totale += p.ore);
-  return Math.round(totale * 10) / 10;
-}
-
-function renderPagamenti() {
-  const container = document.getElementById('pagamentiListaCompact');
-  const anno = annoPagCorrente;
-  document.getElementById('annoPagCorrente').textContent = anno;
-  
-  let html = '';
-  let totaleAnno = 0, pagatoAnno = 0;
-  
-  for (let m = 0; m < 12; m++) {
-    const straord = getStraordMese(anno, m);
-    const pagato = getTotalePagatoMese(anno, m);
-    const daPagare = Math.round((straord.totStr - pagato) * 10) / 10;
-    
-    totaleAnno += straord.totStr;
-    pagatoAnno += pagato;
-    
-    const pags = getPagamentiMese(anno, m);
-    let pagamentiHtml = '';
-    if (pags.length > 0) {
-      pagamentiHtml = pags.map(p => 
-        `<div style="font-size:10px;color:var(--text-3);padding:1px 0;">${p.dataPagamento || 'N/D'}: ${p.ore}h ${p.note ? '- ' + p.note : ''}</div>`
-      ).join('');
-    }
-    
-    const hasData = straord.totStr > 0 || pagato > 0;
-    if (hasData) {
-      let stato = 'zero';
-      let statoTxt = '❌ Da pagare';
-      if (daPagare <= 0.01 && straord.totStr > 0) {
-        stato = 'completato';
-        statoTxt = '✅ Completato';
-      } else if (pagato > 0) {
-        stato = 'parziale';
-        statoTxt = '⏳ Parziale';
-      }
-      
-      html += `
-        <div class="mese-row">
-          <span class="nome-mese">${nomiMesi[m]}</span>
-          <div class="ore">
-            <span class="totale">${straord.totStr.toFixed(1)}h</span>
-            <span class="pagato">${pagato.toFixed(1)}h</span>
-            <span class="da-pagare">${daPagare.toFixed(1)}h</span>
-          </div>
-          <span style="font-size:9px;color:${stato === 'completato' ? 'var(--success)' : stato === 'parziale' ? 'var(--warning)' : 'var(--danger)'};">${statoTxt}</span>
-        </div>
-        ${pagamentiHtml ? `<div style="padding:2px 8px 4px 48px;font-size:10px;">${pagamentiHtml}</div>` : ''}
-        <div class="actions-mese">
-          <button class="btn btn-xs btn-success" onclick="apriPagamentoMese('${getMeseKey(anno, m)}')">➕</button>
-          ${daPagare > 0.01 ? `<button class="btn btn-xs btn-danger" onclick="chiudiMese('${getMeseKey(anno, m)}')">✅</button>` : ''}
-          ${straord.totStr === 0 && pagato === 0 ? '' : `<button class="btn btn-xs btn-warning" onclick="modificaStraordManuale('${getMeseKey(anno, m)}')">✏️</button>`}
-        </div>
-      `;
-    }
-  }
-  
-  if (html === '') {
-    html = '<div style="text-align:center;padding:12px;color:var(--text-3);font-size:12px;">Nessun dato per questo anno</div>';
-  }
-  
-  container.innerHTML = html;
-  
-  document.getElementById('pagTotaleCompact').textContent = totaleAnno.toFixed(1) + 'h';
-  document.getElementById('pagPagatoCompact').textContent = pagatoAnno.toFixed(1) + 'h';
-  document.getElementById('pagDaPagareCompact').textContent = (totaleAnno - pagatoAnno).toFixed(1) + 'h';
-}
-
-function cambiaAnnoPag(delta) {
-  annoPagCorrente += delta;
-  renderPagamenti();
-}
-
-function apriPagamento() {
-  document.getElementById('pagamentoOverlay').classList.add('active');
-  document.getElementById('pagamentoSheet').classList.add('active');
-  
-  const oggi = new Date();
-  document.getElementById('pMese').value = oggi.getFullYear() + '-' + String(oggi.getMonth() + 1).padStart(2, '0');
-  document.getElementById('pDataPagamento').value = oggi.toISOString().split('T')[0];
-  document.getElementById('pOre').value = '';
-  document.getElementById('pNote').value = '';
-}
-
-function apriPagamentoMese(meseKey) {
-  document.getElementById('pagamentoOverlay').classList.add('active');
-  document.getElementById('pagamentoSheet').classList.add('active');
-  
-  document.getElementById('pMese').value = meseKey;
-  document.getElementById('pDataPagamento').value = new Date().toISOString().split('T')[0];
-  document.getElementById('pOre').value = '';
-  document.getElementById('pNote').value = '';
-}
-
-function closePagamentoSheet() {
-  document.getElementById('pagamentoOverlay').classList.remove('active');
-  document.getElementById('pagamentoSheet').classList.remove('active');
-}
-
-function handlePagamentoSubmit(e) {
-  e.preventDefault();
-  
-  const mese = document.getElementById('pMese').value;
-  const ore = parseFloat(document.getElementById('pOre').value);
-  const dataPagamento = document.getElementById('pDataPagamento').value;
-  const note = document.getElementById('pNote').value.trim();
-  
-  if (!mese) { toast('Seleziona un mese', 'warning'); return false; }
-  if (!ore || ore <= 0) { toast('Inserisci un numero di ore valido', 'warning'); return false; }
-  if (!dataPagamento) { toast('Seleziona una data di pagamento', 'warning'); return false; }
-  
-  const [anno, meseNum] = mese.split('-').map(Number);
-  const straord = getStraordMese(anno, meseNum - 1);
-  const pagato = getTotalePagatoMese(anno, meseNum - 1);
-  
-  if (pagato + ore > straord.totStr + 0.01) {
-    toast('Attenzione: stai pagando più ore del totale disponibile!', 'warning');
-    if (!confirm('Il totale pagato supererà le ore disponibili. Continuare?')) return false;
-  }
-  
-  pagamenti.push({
-    mese: mese,
-    ore: Math.round(ore * 10) / 10,
-    dataPagamento: dataPagamento,
-    note: note || ''
-  });
-  
-  save();
-  closePagamentoSheet();
-  renderPagamenti();
-  toast('💰 Pagamento registrato!');
-  return false;
-}
-
-function chiudiMese(meseKey) {
-  const [anno, mese] = meseKey.split('-').map(Number);
-  const straord = getStraordMese(anno, mese - 1);
-  const pagato = getTotalePagatoMese(anno, mese - 1);
-  const daPagare = Math.round((straord.totStr - pagato) * 10) / 10;
-  
-  if (daPagare <= 0.01) {
-    toast('Mese già completato!', 'warning');
-    return;
-  }
-  
-  if (confirm(`Chiudere il mese ${nomiMesi[mese-1]} ${anno} pagando le restanti ${daPagare.toFixed(1)}h?`)) {
-    pagamenti.push({
-      mese: meseKey,
-      ore: daPagare,
-      dataPagamento: new Date().toISOString().split('T')[0],
-      note: 'Chiusura mese'
-    });
-    save();
-    renderPagamenti();
-    toast('✅ Mese completato!');
-  }
-}
-
-function modificaStraordManuale(meseKey) {
-  const [anno, mese] = meseKey.split('-').map(Number);
-  const straord = getStraordMese(anno, mese - 1);
-  
-  document.getElementById('straordManualeOverlay').classList.add('active');
-  document.getElementById('straordManualeSheet').classList.add('active');
-  
-  document.getElementById('sMese').value = meseKey;
-  document.getElementById('sOre').value = straord.totStr.toFixed(1);
-  document.getElementById('sFer').value = straord.fer.toFixed(1);
-  document.getElementById('sNf').value = straord.nf.toFixed(1);
-  document.getElementById('sFn').value = straord.fn.toFixed(1);
-  aggiornaTotaleStraordManuale();
-}
-
-// ===== RENDER =====
 function renderAgenda() {
   const container = document.getElementById('agendaContainer');
   const oggi = new Date();
+  const oggiStr = oggi.toISOString().split('T')[0];
   let html = '';
   
   for (let i = 0; i < 7; i++) {
@@ -2433,7 +1573,7 @@ function renderAgenda() {
       else if (item.inizio) orario = item.inizio;
       
       const serviziRiposo = ['Giorno libero', 'Riposo', 'Riposo festivo'];
-      const serviziLicenza = ['C.O.', 'C.S.', 'C.L.', 'Aspettativa', 'Donazione sangue', 'Visita specialistica'];
+      const serviziLicenza = ['C.O.', 'C.S.', 'C.L.', 'Malattia', 'Concorso'];
       const serviziRecupero = ['Recupero Riposo', 'Recupero Giorno Libero', 'Recupero Riposo Festivo'];
       
       if (serviziRiposo.includes(item.servizio)) {
@@ -2509,18 +1649,27 @@ function renderRiepilogo() {
   });
   
   let totStr = 0, totNott = 0, totFest = 0;
-  let fer = 0, nf = 0, fn = 0;
+  let strFER = 0, strNF = 0, strFN = 0;
   let opSede = 0, opFS = 0, opPernotto = 0;
-  let co = 0, cs = 0, cl = 0;
+  let co = 0, cs = 0, cl = 0, malattia = 0;
   let recuperiCount = 0;
   let servEstCount = 0;
   let fesiCount = 0, mancatoPastoCount = 0, ticketCount = 0;
   
   servizi.forEach(r => {
     if (r.straord) totStr += r.straord;
-    if (r.fer) fer += r.fer;
-    if (r.nf) nf += r.nf;
-    if (r.fn) fn += r.fn;
+    if (r.straord) {
+      if (r.festivo === 0 && (r.notturno || 0) === 0) {
+        strFER += r.straord;
+      } else if (r.festivo === 0 && (r.notturno || 0) > 0) {
+        strNF += r.straord;
+      } else if (r.festivo === 1 && (r.notturno || 0) > 0) {
+        strFN += r.straord;
+      } else if (r.festivo === 1 && (r.notturno || 0) === 0) {
+        strFER += r.straord;
+      }
+    }
+    
     if (r.notturno) totNott += r.notturno;
     if (r.festivo) totFest++;
     
@@ -2529,8 +1678,9 @@ function renderRiepilogo() {
     else if (r.servizio === 'OP Pernotto') opPernotto++;
     
     if (r.servizio === 'C.O.') co++;
-    else if (r.servizio === 'C.S.' || r.servizio === 'Donazione sangue' || r.servizio === 'Visita specialistica') cs++;
+    else if (r.servizio === 'C.S.') cs++;
     else if (r.servizio === 'C.L.') cl++;
+    else if (r.servizio === 'Malattia') malattia++;
     
     if (['Recupero Riposo', 'Recupero Giorno Libero', 'Recupero Riposo Festivo'].includes(r.servizio)) {
       recuperiCount++;
@@ -2543,9 +1693,9 @@ function renderRiepilogo() {
   });
   
   document.getElementById('rStrTot').textContent = totStr.toFixed(1) + 'h';
-  document.getElementById('rStrFer').textContent = fer.toFixed(1) + 'h';
-  document.getElementById('rStrNF').textContent = nf.toFixed(1) + 'h';
-  document.getElementById('rStrFN').textContent = fn.toFixed(1) + 'h';
+  document.getElementById('rStrFer').textContent = strFER.toFixed(1) + 'h';
+  document.getElementById('rStrNF').textContent = strNF.toFixed(1) + 'h';
+  document.getElementById('rStrFN').textContent = strFN.toFixed(1) + 'h';
   document.getElementById('rNott').textContent = totNott.toFixed(1) + 'h';
   document.getElementById('rFest').textContent = totFest;
   document.getElementById('rServ').textContent = servizi.length;
@@ -2563,13 +1713,16 @@ function renderRiepilogo() {
   document.getElementById('rCO').textContent = co;
   document.getElementById('rCS').textContent = cs;
   document.getElementById('rCL').textContent = cl;
+  document.getElementById('rMalattia').textContent = malattia;
 }
 
 function renderCongedi() {
   const residui = getCongediResidui();
   const container = document.getElementById('congediDettaglio');
-  const annoCorrente = residui.annoCorrente;
-  const anniVisibili = getAnniVisibili();
+  
+  const pct2024 = congedi.co2024 > 0 ? (residui.residuo2024 / congedi.co2024) * 100 : 0;
+  const pct2025 = congedi.co2025 > 0 ? (residui.residuo2025 / congedi.co2025) * 100 : 0;
+  const pct2026 = congedi.co2026 > 0 ? (residui.residuo2026 / congedi.co2026) * 100 : 0;
   
   function getBarColor(pct) {
     if (pct > 60) return 'verde';
@@ -2577,136 +1730,46 @@ function renderCongedi() {
     return 'rosso';
   }
   
-  let html = '';
-  
-  anniVisibili.forEach(anno => {
-    const data = residui.anni[anno];
-    if (!data) return;
-    
-    const isCorrente = anno === annoCorrente;
-    const label = isCorrente ? anno + ' (corrente)' : anno;
-    
-    if (!isCorrente) {
-      const pctCO = data.co.totale > 0 ? (data.co.residuo / data.co.totale) * 100 : 0;
-      html += `
-        <div style="font-size:12px;font-weight:600;color:var(--text-2);margin-top:4px;">📌 ${label}</div>
-        <div class="congedo-row">
-          <span class="anno">C.O.</span>
-          <span class="dati">${data.co.residuo} / ${data.co.totale} gg</span>
-          <div class="barra"><div class="fill ${getBarColor(pctCO)}" style="width:${Math.min(pctCO, 100)}%;"></div></div>
-          <span class="residuo">${data.co.residuo}</span>
-        </div>
-        ${data.eccedenza ? `<div style="font-size:11px;color:var(--danger);margin-top:2px;">⚠️ Eccedenza: più giorni usati di quelli disponibili</div>` : ''}
-      `;
-    } else {
-      const pctCO = data.co.totale > 0 ? (data.co.residuo / data.co.totale) * 100 : 0;
-      const pctCS = data.cs.totale > 0 ? (data.cs.residuo / data.cs.totale) * 100 : 0;
-      const pctCL = data.cl.totale > 0 ? (data.cl.residuo / data.cl.totale) * 100 : 0;
-      
-      html += `
-        <div style="font-size:12px;font-weight:600;color:var(--text-2);margin-top:4px;">📌 ${label}</div>
-        <div class="congedo-row">
-          <span class="anno">C.O.</span>
-          <span class="dati">${data.co.residuo} / ${data.co.totale} gg</span>
-          <div class="barra"><div class="fill ${getBarColor(pctCO)}" style="width:${Math.min(pctCO, 100)}%;"></div></div>
-          <span class="residuo">${data.co.residuo}</span>
-        </div>
-        <div class="congedo-row">
-          <span class="anno">C.S.</span>
-          <span class="dati">${data.cs.residuo} / ${data.cs.totale} gg</span>
-          <div class="barra"><div class="fill ${getBarColor(pctCS)}" style="width:${Math.min(pctCS, 100)}%;"></div></div>
-          <span class="residuo">${data.cs.residuo}</span>
-        </div>
-        <div class="congedo-row">
-          <span class="anno">C.L.</span>
-          <span class="dati">${data.cl.residuo} / ${data.cl.totale} gg</span>
-          <div class="barra"><div class="fill ${getBarColor(pctCL)}" style="width:${Math.min(pctCL, 100)}%;"></div></div>
-          <span class="residuo">${data.cl.residuo}</span>
-        </div>
-        ${data.eccedenza ? `<div style="font-size:11px;color:var(--danger);margin-top:2px;">⚠️ Eccedenza: più giorni usati di quelli disponibili</div>` : ''}
-      `;
-    }
-  });
-  
-  const aspInfo = getAspettativaInfo();
-  const pctAsp = (aspInfo.utilizzati / aspInfo.totaleMesi) * 100;
-  
-  html += `
-    <div class="aspettativa-row">
-      <div class="header">
-        <span class="label">⏳ Aspettativa</span>
-        <span style="font-size:13px;font-weight:700;color:var(--primary-light);">${aspInfo.disponibile.toFixed(1)} / ${aspInfo.totaleMesi} mesi</span>
-      </div>
-      <div class="barra">
-        <div class="fill ${pctAsp > 80 ? 'rosso' : pctAsp > 50 ? 'giallo' : 'verde'}" style="width:${Math.min(pctAsp, 100)}%;"></div>
-      </div>
-      <div class="dettagli">
-        <span>Utilizzati: ${aspInfo.utilizzati.toFixed(1)} mesi</span>
-        <span>Recuperati: ${aspInfo.recuperato.toFixed(1)} mesi</span>
-        <span>Disponibili: ${aspInfo.disponibile.toFixed(1)} mesi</span>
-      </div>
-      ${aspInfo.periodi.length > 0 ? `
-        <div style="margin-top:6px;font-size:11px;color:var(--text-3);">
-          <span>📅 Periodi: </span>
-          ${aspInfo.periodi.map(p => `${p.inizio} → ${p.fine}`).join('; ')}
-        </div>
-      ` : ''}
+  container.innerHTML = `
+    <div class="congedo-row">
+      <span class="anno">2024</span>
+      <span class="dati">${residui.residuo2024} / ${congedi.co2024} gg</span>
+      <div class="barra"><div class="fill ${getBarColor(pct2024)}" style="width:${pct2024}%;"></div></div>
+      <span class="residuo">${residui.residuo2024}</span>
     </div>
+    <div class="congedo-row">
+      <span class="anno">2025</span>
+      <span class="dati">${residui.residuo2025} / ${congedi.co2025} gg</span>
+      <div class="barra"><div class="fill ${getBarColor(pct2025)}" style="width:${pct2025}%;"></div></div>
+      <span class="residuo">${residui.residuo2025}</span>
+    </div>
+    <div class="congedo-row">
+      <span class="anno">2026</span>
+      <span class="dati">${residui.residuo2026} / ${congedi.co2026} gg</span>
+      <div class="barra"><div class="fill ${getBarColor(pct2026)}" style="width:${pct2026}%;"></div></div>
+      <span class="residuo">${residui.residuo2026}</span>
+    </div>
+    <div style="margin-top:8px;padding:8px 12px;background:var(--surface-2);border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;">
+      <span class="fw-bold">📊 TOTALE C.O. RESIDUO</span>
+      <span class="fw-bold" style="font-size:20px;color:var(--primary-light);">${residui.totale} gg</span>
+    </div>
+    ${residui.eccedenza > 0 ? `<div style="margin-top:4px;padding:4px 12px;background:rgba(239,68,68,0.1);border-radius:var(--radius-sm);color:var(--danger);font-size:13px;">⚠️ Eccedenza: ${residui.eccedenza} giorni consumati oltre il disponibile</div>` : ''}
   `;
   
-  container.innerHTML = html;
-  renderConfigurazioneCongedi();
-}
-
-function renderConfigurazioneCongedi() {
-  const container = document.getElementById('configurazioneAnni');
-  const anni = getAnniVisibili();
-  const config = getCongediConfig();
-  const annoCorrente = new Date().getFullYear();
-  
-  let html = '';
-  anni.forEach(anno => {
-    if (anno === annoCorrente) return;
-    
-    const cfg = config[anno] || { co: 45 };
-    html += `
-      <div style="margin-bottom:12px;padding:8px;background:var(--surface-2);border-radius:var(--radius-sm);">
-        <div style="font-weight:700;font-size:13px;margin-bottom:4px;">Anno ${anno}</div>
-        <div class="form-group" style="margin-bottom:0;">
-          <label>C.O.</label>
-          <input type="number" id="co_${anno}" min="0" max="45" value="${cfg.co}" onchange="aggiornaConfigCongedi()">
-        </div>
-        <div style="margin-top:4px;font-size:10px;color:var(--text-3);">
-          ⚠️ C.S. e C.L. si azzerano ogni anno solare e non vengono configurati per gli anni passati
-        </div>
-      </div>
-    `;
-  });
-  
-  container.innerHTML = html;
-}
-
-function aggiornaConfigCongedi() {
-  // La funzione viene chiamata onchange, ma salviamo solo quando cliccano su Salva
+  document.getElementById('licCOtot').textContent = residui.totale;
+  document.getElementById('licCS').textContent = congedi.cs;
+  document.getElementById('licCL').textContent = congedi.cl;
 }
 
 function salvaCongedi() {
-  const anni = getAnniVisibili();
-  const annoCorrente = new Date().getFullYear();
-  
-  anni.forEach(anno => {
-    if (anno === annoCorrente) return;
-    
-    const input = document.getElementById('co_' + anno);
-    if (input) {
-      const co = parseInt(input.value) || 0;
-      congediConfig[anno] = { co: co };
-    }
-  });
-  
+  congedi.co2024 = parseInt(document.getElementById('co2024').value) || 0;
+  congedi.co2025 = parseInt(document.getElementById('co2025').value) || 0;
+  congedi.co2026 = parseInt(document.getElementById('co2026').value) || 0;
+  congedi.cs = parseInt(document.getElementById('csGiorni').value) || 0;
+  congedi.cl = parseInt(document.getElementById('clGiorni').value) || 0;
   save();
   renderCongedi();
-  toast('✅ Configurazione congedi salvata!');
+  toast('Configurazione congedi salvata!');
 }
 
 function renderRecuperi() {
@@ -2720,7 +1783,7 @@ function renderRecuperi() {
       return `
       <div class="recupero-item">
         <span class="data-rec">${r.data}</span>
-        <span class="tipo-rec">${r.tipo}${r.note ? ' (' + r.note + ')' : ''}</span>
+        <span class="tipo-rec">${r.tipo}</span>
         <span class="stato-rec attesa">⏳ In attesa</span>
         <button class="btn btn-sm btn-success" onclick="consumaRecupero(${attesaIdx})">✅ Usa</button>
       </div>
@@ -2735,7 +1798,7 @@ function renderRecuperi() {
     listaUsati.innerHTML = usati.map(r => `
       <div class="recupero-item" style="border-left-color:var(--success);opacity:0.7;">
         <span class="data-rec">${r.data}</span>
-        <span class="tipo-rec">${r.tipo}${r.note ? ' (' + r.note + ')' : ''}</span>
+        <span class="tipo-rec">${r.tipo}</span>
         <span class="stato-rec usato">✅ Usato</span>
         <span style="font-size:10px;color:var(--text-3);">il ${r.dataUsato}</span>
       </div>
@@ -2743,6 +1806,26 @@ function renderRecuperi() {
   }
   
   document.getElementById('recuperiBadge').textContent = inAttesa.length;
+}
+
+function aggiungiRecuperoManuale() {
+  const data = prompt('Inserisci data del recupero (GG/MM/AAAA):');
+  if (!data) return;
+  const tipo = prompt('Tipo recupero:\n1 = Riposo\n2 = Giorno libero\n3 = Riposo festivo');
+  if (!tipo) return;
+  const tipi = ['', 'Riposo', 'Giorno libero', 'Riposo festivo'];
+  const tipoSel = tipi[parseInt(tipo)] || 'Riposo';
+  
+  const parti = data.split('/');
+  if (parti.length === 3) {
+    const dataForm = parti[2] + '-' + parti[1].padStart(2,'0') + '-' + parti[0].padStart(2,'0');
+    recuperi.push({ data: dataForm, tipo: tipoSel, usato: false, dataUsato: '' });
+    save();
+    renderRecuperi();
+    toast('Recupero aggiunto!');
+  } else {
+    toast('Formato data non valido', 'error');
+  }
 }
 
 function consumaRecupero(idx) {
@@ -2798,33 +1881,14 @@ function renderDatabase() {
 }
 
 function esportaCSV() {
-  let csv = 'Data,Servizio,Localita,Turno,Inizio,Fine,Ore,Straord,FER,N/F,F/N,Notturno,Festivo,FESI,ServEsterno,MancatoPasto,Ticket,Collega,Note,ConsumoAnno\n';
+  let csv = 'Data,Servizio,Localita,Turno,Inizio,Fine,Ore,Straord,Notturno,Festivo,FESI,ServEsterno,MancatoPasto,Ticket,Collega,Note\n';
   db.filter(r => r.servizio).forEach(r => {
-    csv += `${r.data},"${r.servizio}","${r.localita||''}","${r.turno||''}","${r.inizio||''}","${r.fine||''}",${r.ore||0},${r.straord||0},${r.fer||0},${r.nf||0},${r.fn||0},${r.notturno||0},${r.festivo||0},${r.fesi||0},${r.servEst||0},${r.mancatoPasto||0},${r.ticket||0},"${r.collega||''}","${r.note||''}",${r.consumo_anno||''}\n`;
+    csv += `${r.data},"${r.servizio}","${r.localita||''}","${r.turno||''}","${r.inizio||''}","${r.fine||''}",${r.ore||0},${r.straord||0},${r.notturno||0},${r.festivo||0},${r.fesi||0},${r.servEst||0},${r.mancatoPasto||0},${r.ticket||0},"${r.collega||''}","${r.note||''}"\n`;
   });
-  
-  csv += '\n--- STRAORDINARIO MANUALE ---\n';
-  csv += 'Mese,Totale,FER,N/F,F/N\n';
-  straordManuale.forEach(s => {
-    csv += `${s.mese},${s.ore},${s.fer||0},${s.nf||0},${s.fn||0}\n`;
-  });
-  
-  csv += '\n--- PAGAMENTI ---\n';
-  csv += 'Mese,Ore,DataPagamento,Note\n';
-  pagamenti.forEach(p => {
-    csv += `${p.mese},${p.ore},${p.dataPagamento||''},"${p.note||''}"\n`;
-  });
-  
-  csv += '\n--- RECUPERI ---\n';
-  csv += 'Data,Tipo,Usato,DataUsato,Note\n';
-  recuperi.forEach(r => {
-    csv += `${r.data},${r.tipo},${r.usato},${r.dataUsato||''},"${r.note||''}"\n`;
-  });
-  
   const blob = new Blob([csv], { type: 'text/csv' });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
-  link.download = 'agenda_polizia.csv';
+  link.download = 'registro_pds.csv';
   link.click();
   toast('CSV esportato!');
 }
@@ -2835,16 +1899,12 @@ function resetDati() {
     localStorage.removeItem('pds_localita');
     localStorage.removeItem('pds_colleghi');
     localStorage.removeItem('pds_recuperi');
-    localStorage.removeItem('pds_pagamenti');
-    localStorage.removeItem('pds_straord_manuale');
-    localStorage.removeItem('pds_congedi_config');
+    localStorage.removeItem('pds_congedi');
     db = [];
     localita = [];
     colleghi = [];
     recuperi = [];
-    pagamenti = [];
-    straordManuale = [];
-    congediConfig = {};
+    congedi = { co2024: 2, co2025: 45, co2026: 45, cs: 45, cl: 4 };
     save();
     renderAll();
     toast('Dati resettati!', 'warning');
@@ -2876,8 +1936,8 @@ function openSheet() {
   document.getElementById('sheetOverlay').classList.add('active');
   document.getElementById('sheet').classList.add('active');
   
+  // Popola i turni ogni volta che apro il foglio
   buildTurni();
-  buildOrari();
   
   document.getElementById('fData').value = new Date().toISOString().split('T')[0];
   document.getElementById('fServizio').value = '';
@@ -2891,12 +1951,9 @@ function openSheet() {
   document.getElementById('fServEst').value = '0';
   document.getElementById('fMancatoPasto').value = '0';
   document.getElementById('fTicket').value = '0';
-  document.getElementById('previewOre').textContent = '0h';
   document.getElementById('previewStr').textContent = '0h';
   document.getElementById('previewNott').textContent = '0h';
-  document.getElementById('previewFer').textContent = '0h';
-  document.getElementById('previewNF').textContent = '0h';
-  document.getElementById('previewFN').textContent = '0h';
+  document.getElementById('previewOre').textContent = '0h';
   document.getElementById('suggerimentiLocalita').style.display = 'none';
   caricaData(document.getElementById('fData').value);
 }
@@ -2921,13 +1978,12 @@ function switchTab(tabId) {
 }
 
 function showInfo() {
-  alert('📋 Agenda Polizia v6.0\n\n✅ Gestione pagamenti straordinari nel drawer\n✅ Inserimento manuale straordinari arretrati\n✅ Visualizzazione per anno con dettaglio mesi\n✅ Recuperi con interfaccia migliorata\n✅ Congedi: C.O. consumato prima dagli anni passati (2024 → 2025 → 2026)\n✅ Campo consumo_anno per tracciare da quale anno viene scalato il C.O.\n✅ Configurazione congedi funzionante e salvataggio corretto\n✅ Anno corrente: C.O., C.S., C.L. automatici\n✅ C.S. e C.L. si azzerano ogni anno solare\n✅ Donazione sangue e Visita specialistica consumano C.S.\n✅ Aspettativa: 18 mesi con recupero quinquennale\n✅ Notifiche automatiche alle 13:00 e 21:00\n\nBy Polizia di Stato');
+  alert('📋 Registro Servizi PdS v4.3\n\n✅ Gestione congedi con riporto anni\n✅ Inserimento rapido con turni a blocchi da 6h\n✅ Ultimi 7 giorni\n✅ Riepilogo mese dettagliato\n✅ Calcolo notturno corretto (22:00-06:00)\n✅ Gestione recuperi\n✅ FESI, Serv.Esterno, Mancato Pasto, Ticket\n\nBy Polizia di Stato');
 }
 
 function renderAll() {
   renderHome();
   renderRiepilogo();
-  renderPagamenti();
   renderRecuperi();
   if (document.getElementById('tab-congedi').classList.contains('active')) {
     renderCongedi();
@@ -2939,7 +1995,12 @@ function init() {
   load();
   buildOrari();
   buildTurni();
-  renderAll();
+  
+  document.getElementById('co2024').value = congedi.co2024;
+  document.getElementById('co2025').value = congedi.co2025;
+  document.getElementById('co2026').value = congedi.co2026;
+  document.getElementById('csGiorni').value = congedi.cs;
+  document.getElementById('clGiorni').value = congedi.cl;
   
   const theme = localStorage.getItem('pds_theme');
   if (theme === 'dark') {
@@ -2948,16 +2009,23 @@ function init() {
     document.getElementById('drawerThemeToggle').classList.add('active');
   }
   
-  if (typeof initNotifications === 'function') {
-    initNotifications();
-  }
+  renderAll();
 }
 
 document.addEventListener('DOMContentLoaded', init);
-<<script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js');
-      }
-    </script>
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(function(registration) {
+        console.log('Service Worker registrato:', registration);
+      })
+      .catch(function(error) {
+        console.log('Errore Service Worker:', error);
+      });
+  }
+</script>
+
 </body>
 </html>
