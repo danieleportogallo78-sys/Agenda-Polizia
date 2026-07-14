@@ -1179,6 +1179,8 @@ textarea { resize: vertical; min-height: 60px; }
   <div class="drawer-divider"></div>
 
   <button class="drawer-item" onclick="esportaCSV();toggleDrawer();"><span class="icon">📥</span>Esporta CSV</button>
+  <button class="drawer-item" onclick="document.getElementById('csvInput').click();toggleDrawer();"><span class="icon">📤</span>Importa CSV</button>
+  <input type="file" id="csvInput" accept=".csv" style="display:none;" onchange="importaCSV(this)">
   <button class="drawer-item" onclick="resetDati();toggleDrawer();"><span class="icon">🗑️</span>Reset Dati</button>
 
   <div class="drawer-divider"></div>
@@ -1878,6 +1880,102 @@ function renderDatabase() {
       <td style="text-align:right;font-weight:600;color:var(--purple);">${(r.notturno || 0).toFixed(1)}h</td>
     </tr>
   `).join('');
+}
+
+
+function importaCSV(input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const text = e.target.result;
+    const lines = text.split('\n');
+
+    if (lines.length < 2) {
+      toast('File CSV vuoto o non valido', 'error');
+      return;
+    }
+
+    // Salva i dati attuali come backup
+    const dbBackup = JSON.parse(JSON.stringify(db));
+    const recuperiBackup = JSON.parse(JSON.stringify(recuperi));
+
+    try {
+      let importati = 0;
+
+      // Salta l'header (prima riga)
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+
+        // Parsing CSV semplice (gestisce le virgolette)
+        const values = [];
+        let current = '';
+        let inQuotes = false;
+
+        for (let j = 0; j < line.length; j++) {
+          const char = line[j];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            values.push(current.trim());
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+        values.push(current.trim());
+
+        // Deve avere almeno i campi principali
+        if (values.length < 5) continue;
+
+        const entry = {
+          data: values[0] || '',
+          servizio: values[1] || '',
+          localita: values[2] || '',
+          turno: values[3] || '',
+          inizio: values[4] || '',
+          fine: values[5] || '',
+          ore: parseFloat(values[6]) || 0,
+          straord: parseFloat(values[7]) || 0,
+          notturno: parseFloat(values[8]) || 0,
+          festivo: parseInt(values[9]) || 0,
+          fesi: parseInt(values[10]) || 0,
+          servEst: parseInt(values[11]) || 0,
+          mancatoPasto: parseInt(values[12]) || 0,
+          ticket: parseInt(values[13]) || 0,
+          collega: values[14] || '',
+          note: values[15] || ''
+        };
+
+        if (entry.data && entry.servizio) {
+          const idx = db.findIndex(r => r.data === entry.data);
+          if (idx >= 0) {
+            db[idx] = entry;
+          } else {
+            db.push(entry);
+          }
+          importati++;
+        }
+      }
+
+      db.sort((a, b) => a.data.localeCompare(b.data));
+      save();
+      renderAll();
+      toast('✅ Importati ' + importati + ' servizi!');
+
+    } catch (err) {
+      // Ripristina i backup in caso di errore
+      db = dbBackup;
+      recuperi = recuperiBackup;
+      save();
+      toast('❌ Errore importazione: ' + err.message, 'error');
+    }
+  };
+
+  reader.readAsText(file);
+  input.value = ''; // Reset per permettere re-importazione dello stesso file
 }
 
 function esportaCSV() {
